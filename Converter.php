@@ -282,7 +282,7 @@ class Converter {
         foreach ($this->_commands as $row){
             $command = $row['command'];
             $target  = $this->_prepareHtml($row['target']);
-            $value   = $this->_prepareHtml($row['value']);
+            $value   = str_replace('$', '\$', $this->_prepareHtml($row['value']));
             $res = $commands->$command($target, $value);
             if (is_string($res)){
                 if ($this->_tplCommandEOL !== ''){
