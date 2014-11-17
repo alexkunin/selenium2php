@@ -486,5 +486,13 @@ class Commands2{
         $lines[] = " }, $timeout);";
         return $lines;
     }
+
+    public function pause($timeout)
+    {
+        $timeout = intval($timeout);
+        $lines = array("sleep($timeout);");
+
+        return $lines;
+    }
     
 }
