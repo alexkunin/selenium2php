@@ -497,7 +497,7 @@ class Commands2{
     public function focus($target) {
         $localExpression = '$input = ' . $this->_byQuery($target);
         $lines = array();
-        $lines[] = $this->_obj() . "->moveto($localExpression);";
+        $lines[] = $this->_obj . "->moveto($localExpression);";
 
         return $lines;
     }
