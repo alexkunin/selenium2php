@@ -79,7 +79,7 @@ class Commands2{
     public function sendKeys($selector, $value){
         $lines = array();
         $lines[] = '$input = ' . $this->_byQuery($selector) . ';';
-        $lines[] = '$input->value("' . $value . '");';
+        $lines[] = '$input->keys("' . $value . '");';
         return $lines;
     }
 
