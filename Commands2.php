@@ -487,10 +487,17 @@ class Commands2{
         return $lines;
     }
 
-    public function pause($timeout)
-    {
-        $timeout = intval($timeout);
+    public function pause($timeout) {
+        $timeout = intval($timeout / 1000);
         $lines = array("sleep($timeout);");
+
+        return $lines;
+    }
+
+    public function focus($target) {
+        $localExpression = '$input = ' . $this->_byQuery($target);
+        $lines = array();
+        $lines[] = $this->_obj() . "->moveto($localExpression);";
 
         return $lines;
     }
