@@ -77,9 +77,22 @@ class Commands2{
      * @return string
      */
     public function sendKeys($selector, $value){
+
         $lines = array();
         $lines[] = '$input = ' . $this->_byQuery($selector) . ';';
-        $lines[] = '$input->keys("' . $value . '");';
+        $lines[] = '$input->value("");';
+
+        if (strpos('${', $value) > -1)
+        {
+            $specialKey = str_replace('${KEY_', '', $value);
+            $value = strtolower(str_replace('}', '', $specialKey));
+            $lines[] = '$input->keysSpecial("' . $value . '");';
+        }
+        else
+        {
+            $lines[] = '$this->keys("' . $value . '")"';
+        }
+
         return $lines;
     }
 
