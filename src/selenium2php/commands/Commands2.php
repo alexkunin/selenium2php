@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Selenium2php;
+namespace Selenium2php\commands;
 
 /**
  * Provides formatting some special commands into

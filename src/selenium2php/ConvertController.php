@@ -1,28 +1,10 @@
 <?php
-/*
- * Copyright 2013 Rnix Valentine
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 namespace Selenium2php;
 
-/**
- * Handles CLI commands.
- */
-class CliController {
-    
+class ConvertController
+{
     protected $_converter;
-    
+
     protected $_htmlPattern = "*.html";
     protected $_recursive = false;
     protected $_phpFilePrefix = '';
@@ -33,22 +15,21 @@ class CliController {
     protected $_tplFile = '';
 
     public function __construct() {
-        require_once 'Converter.php';
         $this->_converter = new Converter;
     }
-    
+
     protected function _printTitle() {
         print "Selenium2php converts Selenium HTML tests into PHPUnit test case code.";
         print "\n";
         print "\n";
     }
-    
+
     protected function _printHelp() {
         print "Usage: selenium2php [switches] Test.html [Test.php]";
         print "\n";
         print "       selenium2php [switches] <directory>";
         print "\n";
-        print "\n";      
+        print "\n";
         print "  --dest=<path>                  Destination folder.\n";
         print "  --selenium2                    Use Selenium2 tests format.\n";
         print "  --php-prefix=<string>          Add prefix to php filenames.\n";
@@ -65,7 +46,7 @@ class CliController {
         print "  --custom-param1=<value>        Assign value to \$customParam1 in template.\n";
         print "  --custom-param2=<value>        Assign value to \$customParam2 in template.\n";
     }
-    
+
     protected function _applyOptionsAndFlags($options, $flags){
         if (is_array($options)){
             foreach ($options as $opt){
@@ -132,7 +113,7 @@ class CliController {
                 }
             }
         }
-        
+
         if (is_array($flags)){
             foreach ($flags as $flag){
                 switch($flag){
@@ -146,7 +127,7 @@ class CliController {
             }
         }
     }
-    
+
     public function run($arguments, $options, $flags) {
         $this->_printTitle();
         $this->_applyOptionsAndFlags($options, $flags);
@@ -166,30 +147,26 @@ class CliController {
                         }
                         $this->_sourceBaseDir = rtrim(dirname($htmlFileName), "\\/")."/";
                         $this->convertFile($htmlFileName, $phpFileName);
-                        print "OK.\n";
-                        exit(0);
+                        return;
                     } else {
-                        print "Cannot open file \"$htmlFileName\".\n";
-                        exit(1);
+                        throw new \Exception("Cannot open file \"$htmlFileName\"");
                     }
                 } else if (is_dir($first)) {
                     $dir = rtrim($first, "\\/")."/";
                     $this->_sourceBaseDir = $dir;
                     $res = $this->convertFilesInDirectory($dir);
                     if ($res){
-                        print "OK.\n";
-                        exit(0);
+                        return;
                     } else {
-                        exit(1);
+                        throw new \Exception("Error of some kind");
                     }
                 } else {
-                    print "\"$first\" is not existing file or directory.\n";
-                    exit(1);
+                    throw new \Exception("\"$first\" is not existing file or directory");
                 }
             }
         }
     }
-    
+
     protected function convertFilesInDirectory($dir){
         if ($this->_recursive){
             $files = $this->globRecursive($dir . $this->_htmlPattern, GLOB_NOSORT);
@@ -206,7 +183,7 @@ class CliController {
         }
         return false;
     }
-    
+
     protected function _makeOutputFilename($htmlFileName, $htmlContent) {
         $fileName = $this->_makeTestName($htmlFileName);
 
@@ -231,33 +208,33 @@ class CliController {
         }
 
         $phpFileName = $filePath . $this->_phpFilePrefix
-                . preg_replace("/\..+$/", '', $fileName)
-                . $hashPostfix
-                . $this->_phpFilePostfix . ".php";
+            . preg_replace("/\..+$/", '', $fileName)
+            . $hashPostfix
+            . $this->_phpFilePostfix . ".php";
         return $phpFileName;
     }
-    
+
     /**
      * Makes output test name considering path.
-     * 
+     *
      * If destination folder is not defined
      * returns base name of html file without extension.
-     * Example: 
+     * Example:
      * auth/login/simple.html -> simple
-     * 
+     *
      * If destination folder is defined
      * returns base name of html file prefixed with
      * name of folder accordingly to destination folder.
      * Example:
      * auth/login/simple.html -> Auth_login_simple
-     * 
+     *
      * @param string $htmlFileName input file name
      * @return string output test name
      */
     protected function _makeTestName($htmlFileName){
         /* get from file if this is empty */
         $testName = basename($htmlFileName);
-        
+
         if ($this->_destFolder) {
             $absPath = str_replace('\\', '_', $htmlFileName);
             $absPath = str_replace('/', '_', $absPath);
@@ -265,11 +242,11 @@ class CliController {
             $destPath = str_replace('/', '_', $destPath);
             $testName= str_replace($destPath, '', $absPath);
         }
-        
+
         $testName = ucfirst(preg_replace("/\..+$/", '', $testName));
         return $testName;
     }
-    
+
     public function convertFile($htmlFileName, $phpFileName = '') {
         $htmlContent = file_get_contents($htmlFileName);
         if ($htmlContent) {
@@ -281,7 +258,7 @@ class CliController {
             print $phpFileName."\n";
         }
     }
-    
+
     protected function globRecursive($pattern, $flags) {
 
         $files = glob($pattern, $flags);

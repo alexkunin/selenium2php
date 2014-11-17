@@ -1,0 +1,16 @@
+{
+    "name": "kyeates/selenium2php",
+    "autoload": {
+        "psr-0": {
+            "Selenium2php\\" : "src",
+            "Selenium2php\\commands": "src/commands"
+        },
+        "classmap": [
+            "./libs/simple_html_dom.php"
+        ],
+        "files": [
+            "./libs/arguments.php"
+        ]
+
+    }
+}

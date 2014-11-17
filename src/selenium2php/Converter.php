@@ -16,6 +16,7 @@
  */
 namespace Selenium2php;
 
+use Selenium2php\commands;
 /**
  * Converts HTML text of Selenium test case recorded from Selenium IDE into
  * PHP code for PHPUnit_Extensions_SeleniumTestCase as TestCase file.
@@ -269,10 +270,8 @@ class Converter {
     
     protected function _composeTestMethodContent(){
         if ($this->_selenium2){
-            require_once 'Commands2.php';
             $commands = new Commands2;
         } else {
-            require_once 'Commands.php';
             $commands = new Commands;
         }
         
