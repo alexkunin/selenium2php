@@ -90,7 +90,7 @@ class Commands2{
         }
         else
         {
-            $lines[] = '$this->keys("' . $value . '")"';
+            $lines[] = '$this->keys("' . $value . '");';
         }
 
         return $lines;
