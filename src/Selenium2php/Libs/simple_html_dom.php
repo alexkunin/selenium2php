@@ -82,18 +82,6 @@ function file_get_html($url, $use_include_path = false, $context=null, $offset =
     return $dom;
 }
 
-// get html dom from string
-function str_get_html($str, $lowercase=true, $forceTagsClosed=true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN=true, $defaultBRText=DEFAULT_BR_TEXT)
-{
-    $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $defaultBRText);
-    if (empty($str))
-    {
-        $dom->clear();
-        return false;
-    }
-    $dom->load($str, $lowercase, $stripRN);
-    return $dom;
-}
 
 // dump html dom tree
 function dump_html_tree($node, $show_attr=true, $deep=0)
@@ -118,6 +106,20 @@ class simple_html_dom_node {
     public $_ = array();
     public $tag_start = 0;
     private $dom = null;
+
+    // get html dom from string
+    public static function str_get_html($str, $lowercase=true, $forceTagsClosed=true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN=true, $defaultBRText=DEFAULT_BR_TEXT)
+    {
+        $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $defaultBRText);
+        if (empty($str))
+        {
+            $dom->clear();
+            return false;
+        }
+        $dom->load($str, $lowercase, $stripRN);
+        return $dom;
+    }
+
 
     function __construct($dom)
     {

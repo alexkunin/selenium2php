@@ -17,6 +17,8 @@
 namespace Selenium2php;
 
 use Selenium2php\Commands;
+use Selenium2php\Libs\simple_html_dom_node;
+
 /**
  * Converts HTML text of Selenium test case recorded from Selenium IDE into
  * PHP code for PHPUnit_Extensions_SeleniumTestCase as TestCase file.
@@ -86,7 +88,7 @@ class Converter {
      */
     protected function _parseHtml($htmlStr){
         require_once 'libs/simple_html_dom.php';
-        $html = str_get_html($htmlStr);
+        $html = simple_html_dom_node::str_get_html($htmlStr);
         if ($html && $html->find('link')){
             
             if (!$this->_testUrl){
@@ -270,9 +272,9 @@ class Converter {
     
     protected function _composeTestMethodContent(){
         if ($this->_selenium2){
-            $commands = new Commands2;
+            $commands = new \Selenium2php\Commands\Commands2;
         } else {
-            $commands = new Commands;
+            $commands = new \Selenium2php\Commands\Commands;
         }
         
         $mLines = array();
