@@ -4,13 +4,11 @@
     "autoload": {
         "psr-0": {
             "Selenium2php\\" : "src",
-            "Selenium2php\\commands": "src/commands"
+            "Selenium2php\\commands": "src",
+            "Selenium2php\\libs": "src"
         },
-        "classmap": [
-            "./libs/simple_html_dom.php"
-        ],
         "files": [
-            "./libs/arguments.php"
+            "src/selenium2php/libs/arguments.php"
         ]
 
     }

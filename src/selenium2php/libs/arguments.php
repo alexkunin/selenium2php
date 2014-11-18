@@ -1,5 +1,7 @@
 <?php
 
+namespace kyeates\selenium2php\libs;
+
 /**
  * @link http://php.net/manual/ru/features.commandline.php
  * @param type $args
