@@ -1,15 +1,10 @@
 {
     "name": "kyeates/selenium2php",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-0": {
-            "Selenium2php\\" : "src",
-            "Selenium2php\\commands": "src",
-            "Selenium2php\\libs": "src"
-        },
-        "files": [
-            "src/selenium2php/libs/arguments.php"
-        ]
-
+            "Selenium2php\\" : "src"
+        }
     }
 }

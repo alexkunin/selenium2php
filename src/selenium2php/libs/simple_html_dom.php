@@ -1,6 +1,6 @@
 <?php
 
-namespace kyeates\selenium2php\libs;
+namespace Selenium2php\Libs;
 
 /**
  * Website: http://sourceforge.net/projects/simplehtmldom/

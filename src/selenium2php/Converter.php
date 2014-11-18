@@ -16,7 +16,7 @@
  */
 namespace Selenium2php;
 
-use Selenium2php\commands;
+use Selenium2php\Commands;
 /**
  * Converts HTML text of Selenium test case recorded from Selenium IDE into
  * PHP code for PHPUnit_Extensions_SeleniumTestCase as TestCase file.
