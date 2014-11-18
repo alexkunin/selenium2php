@@ -2,6 +2,9 @@
     "name": "kyeates/selenium2php",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "require": {
+        "php": ">=5.3.3"
+    },
     "autoload": {
         "psr-0": {
             "Selenium2php\\" : "src"
