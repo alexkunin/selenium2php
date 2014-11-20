@@ -62,8 +62,7 @@ class ConvertController
                             $this->_converter->useSelenium2();
                             break;
                         default:
-                            print "Unknown option \"$opt\".\n";
-                            exit(1);
+
                     }
                 } else if (is_array($opt)){
                     switch ($opt[0]){
@@ -107,8 +106,6 @@ class ConvertController
                             $this->_converter->setTplCustomParam2($opt[1]);
                             break;
                         default:
-                            print "Unknown option \"{$opt[0]}\".\n";
-                            exit(1);
                     }
                 }
             }
