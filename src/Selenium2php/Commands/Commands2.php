@@ -166,7 +166,10 @@ class Commands2{
         $lines = array();
         $lines[] = '$input = ' . $this->_byQuery($target) . ';';
         
-        if (strpos($value, '*')) {
+        if (substr($value, 0, 6) === 'exact:') {
+            $value = substr($value, 6);
+            $lines[] = "{$this->_obj}->assertEquals(\"$value\", \$input->text());";
+        } elseif (strpos($value, '*')) {
             $value = '/' . str_replace('*', '.+', $value) . '/';
             $lines[] = "{$this->_obj}->assertRegExp(\"$value\", \$input->text());";
         } else {
