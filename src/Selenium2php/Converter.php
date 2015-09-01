@@ -87,7 +87,7 @@ class Converter {
      * @throws \Exception
      */
     protected function _parseHtml($htmlStr){
-        require_once 'libs/simple_html_dom.php';
+        require_once 'Libs/simple_html_dom.php';
         $html = simple_html_dom_node::str_get_html($htmlStr);
         if ($html && $html->find('link')){
             
